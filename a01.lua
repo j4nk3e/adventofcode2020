@@ -1,0 +1,259 @@
+-- title:  a1
+-- author: juumixx
+-- desc:   advent of code solutions
+-- script: lua
+
+input = [[1939
+1585
+1712
+1600
+1370
+1447
+1247
+1446
+1323
+1713
+1277
+1946
+1677
+1428
+1231
+1481
+1976
+1709
+1508
+1668
+1302
+77
+1351
+1605
+1999
+1982
+1583
+1756
+1957
+1624
+1745
+1938
+1784
+1403
+1642
+1691
+569
+1762
+1555
+1937
+1383
+1897
+1334
+1965
+1683
+1475
+1776
+1791
+1707
+1987
+1233
+1416
+1769
+1345
+1874
+1255
+1744
+1944
+1404
+1360
+1304
+1417
+1977
+1656
+790
+1788
+1353
+1296
+1673
+1810
+1684
+1742
+1425
+1887
+1444
+1352
+1229
+1414
+1493
+1402
+1947
+1669
+1412
+1531
+1474
+1637
+1314
+1607
+1829
+1923
+1949
+1757
+1307
+1714
+1748
+1550
+1372
+1615
+1235
+1272
+1408
+1749
+1687
+1613
+1528
+1561
+341
+1308
+1660
+1667
+1313
+1991
+1675
+1394
+1704
+1303
+1440
+1592
+1857
+1752
+1839
+1397
+1699
+1426
+1878
+1759
+1814
+1096
+372
+1596
+1500
+1774
+1627
+1696
+1851
+1020
+1819
+1292
+1616
+1672
+1279
+1543
+1526
+1682
+1568
+1582
+1921
+922
+1773
+1482
+1238
+1973
+1517
+1909
+409
+1634
+1468
+1445
+1801
+1631
+1407
+1820
+1603
+1495
+1333
+1241
+1849
+82
+1339
+1413
+90
+1662
+1291
+1740
+1340
+1365
+2003
+1546
+1621
+1650
+1518
+1807
+1382
+1433
+1968
+1940
+1986
+1437
+1651
+1237
+1862
+1409
+1200
+2002
+2009
+1735
+1487
+1706
+1643
+1505]]
+
+a1=0
+a2=0
+nums={}
+for line1 in input:gmatch('[^\n]+') do
+ table.insert(nums, tonumber(line1))
+end
+for _,num1 in ipairs(nums) do
+ for _,num2 in ipairs(nums) do
+  if num1+num2==2020 then
+   a1=num1*num2
+  end
+  for _,num3 in ipairs(nums) do
+		 if num1+num2+num3==2020 then
+		  a2=num1*num2*num3
+ 		end
+		end
+ end
+end
+
+r=string.format('%i %i',a1,a2)
+print(r)
+
+function TIC()
+	cls()
+ print(r,24,24)
+end
+
+
+-- <TILES>
+-- 001:eccccccccc888888caaaaaaaca888888cacccccccacc0ccccacc0ccccacc0ccc
+-- 002:ccccceee8888cceeaaaa0cee888a0ceeccca0ccc0cca0c0c0cca0c0c0cca0c0c
+-- 003:eccccccccc888888caaaaaaaca888888cacccccccacccccccacc0ccccacc0ccc
+-- 004:ccccceee8888cceeaaaa0cee888a0ceeccca0cccccca0c0c0cca0c0c0cca0c0c
+-- 017:cacccccccaaaaaaacaaacaaacaaaaccccaaaaaaac8888888cc000cccecccccec
+-- 018:ccca00ccaaaa0ccecaaa0ceeaaaa0ceeaaaa0cee8888ccee000cceeecccceeee
+-- 019:cacccccccaaaaaaacaaacaaacaaaaccccaaaaaaac8888888cc000cccecccccec
+-- 020:ccca00ccaaaa0ccecaaa0ceeaaaa0ceeaaaa0cee8888ccee000cceeecccceeee
+-- </TILES>
+
+-- <WAVES>
+-- 000:00000000ffffffff00000000ffffffff
+-- 001:0123456789abcdeffedcba9876543210
+-- 002:0123456789abcdef0123456789abcdef
+-- </WAVES>
+
+-- <SFX>
+-- 000:000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000304000000000
+-- </SFX>
+
+-- <PALETTE>
+-- 000:1a1c2c5d275db13e53ef7d57ffcd75a7f07038b76425717929366f3b5dc941a6f673eff7f4f4f494b0c2566c86333c57
+-- </PALETTE>
+
