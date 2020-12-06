@@ -1,20 +1,13 @@
-s, x, d = 0, 0, '\n\n'
-for g in (io.read '*a' .. d):gmatch("(.-)" .. d) do
-    f, a, b = 0, {}, {}
-    for e in g:gmatch '[^\n]+' do
-        for c in e:gmatch '%l' do
-            s = s + (a[c] and 0 or 1)
-            a[c] = 1
-            if f == 0 then
-                x = x + (b[c] and 0 or 1)
-                b[c] = 1
-            end
-        end
-        for h in pairs(b) do
-            b[h] = e:find(h)
-            x = b[h] and x or x - 1
-        end
-        f = 1
-    end
-end
-print(s, x)
+s,x,d=0,0,'\n\n'for n
+in(io.read'*a'..d):gmatch('(.-)'..d)do
+f,a,b=0,{},{}for d in
+n:gmatch'[^\n]+'do
+for n in d:gmatch'%l'do
+a[n],s=1,s+(a[n]and
+0 or 1)if f then
+b[n],x=1,x+(b[n]and
+0 or 1)end end
+for n in pairs(b)do
+b[n]=d:find(n)x=b[n]and
+x or x-1 end f=nil end
+end print(s,x)
