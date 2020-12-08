@@ -1,44 +1,9 @@
-function machine()
-    return {
-        a = 0,
-        p = 1,
-        nop = function(self) return self.p + 1 end,
-        jmp = function(self, q) return self.p + q end,
-        acc = function(self, q)
-            self.a = self.a + q
-            return self.p + 1
-        end
-    }
-end
-i, mem = 1, {}
-for cmd in io.lines() do
-    c, a = cmd:gmatch '(%S+) (%S+)'()
-    mem[i] = {c = c, a = a}
-    i = i + 1
-end
-function run(replace)
-    local pos, ops = {}, machine()
-    while '' do
-        if (pos[ops.p]) then return ops.a end
-        pos[ops.p] = true
-        if ops.p > #mem then return nil, ops.a end
-        c, a = mem[ops.p].c, mem[ops.p].a
-        if ops.p == replace then
-            if c == 'nop' then
-                ops.p = ops.jmp(ops, a)
-            elseif c == 'jmp' then
-                ops.p = ops.nop(ops, a)
-            end
-        else
-            ops.p = ops[c](ops, a)
-        end
-    end
-end
-i = 0
-while '' do
-    r, y = run(i)
-    x = i == 0 and r or x
-    i = i + 1
-    if not r then break end
-end
-print(x, y)
+    i,r=1,{}for n in io.lines()do
+    c,d=n:gmatch'(.).. (%S+)'()r[i]={c,d}i=i+1
+    end function z(e)a,p,h,m=0,1,{},{n=function()p=p+1
+    end,j=function(n)p=p+n end,a=function(n)a=a+n p=p+1
+    end}while''do if h[p]then return a end h[p]=''if
+    p>#r then y=a return end c,d=r[p][1],r[p][2]c=p==e
+    and(c=='j'and'n'or c=='n'and'j')or c m[c](d)end
+    end i=0 repeat s=z(i)x=x or s i=i+1
+    until(not s)print(x,y)
