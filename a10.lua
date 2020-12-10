@@ -1,34 +1,9 @@
-n, a, b, m = 1, 0, 1, {}
-for j in io.lines() do
-    m[n] = j + 0
-    n = n + 1
-end
-t = m[1]
-table.sort(m)
-p = 0
-m[0] = 0
-for n, j in pairs(m) do
-    if j - p == 1 then
-        a = a + 1
-    elseif j - p == 3 then
-        b = b + 1
-    end
-    p = j
-end
-v = {}
-function r(i)
-    if i == #m then
-        return 1
-    elseif v[i] then
-        return v[i]
-    end
-    b = 0
-    for n = i + 1, #m do
-        if m[n] > m[i] + 3 then break end
-        b = b + r(n)
-    end
-    v[i] = b
-    return b
-end
-print(a * b, r(0))
-
+a,b,v,m=0,1,0,{[0]=0}for n in
+io.lines()do m[n+0]=0 end for
+n in pairs(m)do v=n if m[n+1]then
+a=1+a elseif m[n+3]then b=1+b end
+end function r(n)q=m[n]if n==v
+then return 1 elseif q>0 then
+return q end for e=n+1,n+3 do
+m[n]=m[n]+(m[e]and r(e)or 0)end
+return m[n]end print(a*b,r(0))
