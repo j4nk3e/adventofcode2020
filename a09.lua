@@ -1,29 +1,6 @@
-a, b, n, q, m = 1, 1, 1, 25, {}
-for i in io.lines() do
-    m[n] = i + 0
-    if n > q then
-        for x = n - q, n do
-            for y = n - q, n do
-                if m[x] + m[y] == m[n] then goto e end
-            end
-        end
-        g = m[n]
-    end
-    ::e::
-    n = n + 1
-end
-t = m[1]
-repeat
-    if t > g then
-        t = t - m[a]
-        a = a + 1
-    elseif t < g then
-        b = b + 1
-        t = t + m[b]
-    end
-until t == g
-for r = a, b do
-    y = math.min(y or m[r], m[r])
-    x = math.max(x or m[r], m[r])
-end
-print(g, y + x)
+a,b,n,q,m=1,1,1,25,{}for e in io.lines()do m[n]=e+0 if n>q
+then for e=n-q,n do for t=n-q,n do if m[e]+m[t]==m[n]then
+goto e end end end g=m[n]end::e::n=n+1 end t=m[1]for n in
+pairs(m)do repeat if t<g then b=b+1 t=t+m[b]elseif t>g then
+t=t-m[a]a=a+1 end until t==g end for n=a,b do y=math.min(y
+or m[n],m[n])x=math.max(x or m[n],m[n])end print(g,y+x)
