@@ -1,6 +1,5 @@
-require 'pl'
 local rules = {}
-local matches = 0
+local a, b = 0, 0
 
 local function resolve(rule_id)
     local rule = rules[rule_id]
@@ -21,7 +20,6 @@ local function resolve(rule_id)
     return result
 end
 
-local allowed
 for line in io.lines() do
     local num, rule = line:gmatch('(%d+): ([^\n]+)')()
     if num then
@@ -40,9 +38,32 @@ for line in io.lines() do
             end
         end
     elseif #line == 0 then
-        allowed = resolve(0)
+        -- 0: 8 11
+        prefixes = resolve(42)
+        postfixes = resolve(31)
     elseif #line > 0 then
-        if allowed[line] then matches = matches + 1 end
+        local pre_count = 0
+        local post_count = 0
+        for i = 1, #line, 8 do
+            if prefixes[line:sub(i, i + 7)] then
+                pre_count = pre_count + 1
+            else
+                break
+            end
+        end
+        for i = #line - 7, 1, -8 do
+            if postfixes[line:sub(i, i + 7)] then
+                post_count = post_count + 1
+            else
+                break
+            end
+        end
+        local chunks = #line / 8
+        if pre_count >= 2 and post_count >= 1 and chunks == 3 then
+            a = a + 1
+        end
+        if post_count > 0 and pre_count > post_count and post_count + pre_count >=
+            chunks then b = b + 1 end
     end
 end
-print(matches)
+print(a, b)
