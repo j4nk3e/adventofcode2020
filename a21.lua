@@ -1,45 +1,8 @@
-require 'pl'
-local inp = {}
-local allerg = {}
-local ingr = {}
-local ing_count = {}
-for i, a in io.read '*a':gmatch('([^\n]+) %(contains ([^\n]+)%)') do inp[i] = a end
-for i, a in pairs(inp) do
-    ingredients = {}
-    for w in i:gmatch('%l+') do
-        ingredients[#ingredients + 1] = w
-        ing_count[w] = (ing_count[w] or 0) + 1
-        ingr[w] = true
-    end
-    for b in a:gmatch('%l+') do
-        if not allerg[b] then
-            allerg[b] = Set(ingredients)
-        else
-            allerg[b] = allerg[b] * Set(ingredients)
-        end
-    end
-end
-unique = false
-while not unique do
-    unique = true
-    for q, b in pairs(allerg) do
-        if Set.len(b) == 1 then
-            for h, brem in pairs(allerg) do
-                if h ~= q then allerg[h] = brem - b end
-            end
-        else
-            unique = false
-        end
-        for i in pairs(b) do ingr[i] = nil end
-    end
-end
-count = 0
-for i in pairs(ingr) do count = count + ing_count[i] end
-keys = tablex.keys(allerg)
-table.sort(keys)
-n = ''
-for _, k in pairs(keys) do
-    if #n > 0 then n = n .. ',' end
-    n = n .. Set.values(allerg[k])[1]
-end
-print(count, n)
+d={}e={}i={}o={}for e,n in io.read'*a':gmatch'([^\n]+) %(%l+ ([^%)]+)'do
+d[e]=n end require'pl'for d,n in pairs(d)do z={}for e in d:gmatch'%l+'do
+z[#z+1]=e o[e]=(o[e]or 0)+1 i[e]=1 end for n in n:gmatch'%l+'do e[n]=e[n]and
+e[n]*Set(z)or Set(z)end end while not u do u=''for r,n in pairs(e)do if
+Set.len(n)==1 then for o,d in pairs(e)do if o~=r then e[o]=d-n end end
+else u=j end for e in pairs(n)do i[e]=nil end end end x=0 for e in
+pairs(i)do x=x+o[e]end k=tablex.keys(e)table.sort(k)for _,o in
+pairs(k)do n=n and n..','or''n=n..Set.values(e[o])[1]end print(x,n)
