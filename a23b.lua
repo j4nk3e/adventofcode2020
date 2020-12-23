@@ -1,19 +1,22 @@
 local c_max
 local c_min
+
+local index = {}
 function Cup(i)
-    return {
-        v = i,
-        find = function(self, n)
-            if self.v == n then
-                return self
-            elseif not self.next then
-                return nil
-            else
-                return self.next:find(n)
-            end
-        end
-    }
+    index[i] = {v = i}
+    return index[i]
 end
+
+local function find(self, n)
+    if self.v == n then
+        return self
+    elseif not self.next then
+        return nil
+    else
+        return find(self.next, n)
+    end
+end
+
 local cup
 local start
 for i in io.read '*a':gmatch '%d' do
@@ -28,20 +31,15 @@ for i in io.read '*a':gmatch '%d' do
     cup = c
 end
 
-local function pr(c, limit)
-    local t = {c.v}
-    local p = c.next
-    local i = 1
-    while p and p ~= c and i < limit do
-        i = i + 1
-        t[i] = p.v
-        p = p.next
-    end
-    return table.concat(t, '')
+for i = c_max + 1, 1000000 do
+    local c = Cup(i)
+    cup.next = c
+    cup = c
 end
+c_max = #index
 
 cup.next = start
-for _ = 1, 100 do
+for _ = 1, 10000000 do
     -- The crab picks up the three cups that are immediately clockwise
     -- of the current cup.
     local move = start.next
@@ -57,14 +55,14 @@ for _ = 1, 100 do
     -- finds a cup that wasn't just picked up.
     local label = start.v - 1
     if label < c_min then label = c_max end
-    while move:find(label) do
+    while find(move, label) do
         label = label - 1
         -- If at any point in this process the value goes below the
         -- lowest value on any cup's label, it wraps around to the
         -- highest value on any cup's label instead.
         if label < c_min then label = c_max end
     end
-    local dest = start:find(label)
+    local dest = index[label]
     -- The crab places the cups it just picked up so that they are
     -- immediately clockwise of the destination cup. They keep the
     -- same order as when they were picked up.
@@ -73,4 +71,5 @@ for _ = 1, 100 do
     -- clockwise of the current cup.
     start = start.next
 end
-print(pr(start:find(1).next, 8))
+local a, b = index[1].next.v, index[1].next.next.v
+print(a * b)
